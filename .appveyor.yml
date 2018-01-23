@@ -10,9 +10,6 @@ version: 1.0.{build}
 
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      platform: x86
-      configuration: Release
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       platform: x64
       configuration: Release
@@ -76,16 +73,3 @@ after_build:
       echo "Tag not detected. Skipping package building and md5 generation."
     )
 
-artifacts:
-  - path: build\*-win32.exe
-    name: XtalOpt
-  - path: build\windows-xtalopt.md5
-    name: md5sum
-
-deploy:
-  provider: GitHub
-  auth_token:
-    secure: AxB7eIUrpYxsEDJm8HA558RLyB6/Gt+EZ2g2ysqYB0v+rvvDkS7ArzdW99xbxTM6
-  artifact: XtalOpt, md5sum
-  on:
-    appveyor_repo_tag: true
